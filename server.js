@@ -2,7 +2,7 @@
 const projectData = {};
 
 //setup dotenv for enviournment variables
-require("dotenv");
+require("dotenv").config();
 // Express to run server and routes
 const express = require("express");
 
