@@ -1,0 +1,20 @@
+{
+  "name": "weather-journal-egfwd",
+  "version": "1.0.0",
+  "description": "A weather journal app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "weather"
+  ],
+  "author": "Mohmaed Montasser",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  }
+}
