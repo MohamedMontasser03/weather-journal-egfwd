@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-const projectData = {};
+let projectData = {};
 
 //setup dotenv for enviournment variables
 require("dotenv").config();
@@ -30,7 +30,15 @@ const server = app.listen(port, () =>
 );
 
 // Initialize all route with a callback function
+app.get("/all", getData);
 
 // Callback function to complete GET '/all'
+function getData(req, res) {
+  res.send(projectData);
+}
 
 // Post Route
+app.post("/add", (req, res) => {
+  projectData = { ...req.body };
+  res.send(projectData);
+});

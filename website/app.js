@@ -36,11 +36,14 @@ async function onSubmit(ev) {
 
   //Fetching weather
   const weather = await getWeather(zipCode);
+
+  postData("/add", { weather, date: getDate(), feelings });
+
   if (!weather) {
     return;
   }
 
-  updateUI(weather, feelings);
+  updateUI();
 }
 
 /* Function to GET Web API Data*/
@@ -57,13 +60,43 @@ async function getWeather(zipCode) {
 }
 
 /* Function to POST data */
+async function postData(url, data) {
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const newData = await res.json();
+
+    return newData;
+  } catch (err) {
+    console.log("An Internal Error has Occured", err);
+  }
+}
 
 /* Function to GET Project Data */
+async function getData(url) {
+  try {
+    const res = await fetch(url);
+
+    const data = await res.json();
+
+    return data;
+  } catch (err) {
+    console.log("An Internal Error has Occured", err);
+  }
+}
 
 /* Function to update UI */
-function updateUI(weather, feelings) {
-  //Removed
-  dateOutput.textContent = `Date 📅: ${getDate()}`;
+async function updateUI() {
+  const { weather, date, feelings } = await getData("/all");
+
+  dateOutput.textContent = `Date 📅: ${date}`;
   tempOutput.textContent = `Temperature 🌡️: ${weather}°C`;
   feelingsOutput.textContent = `Your Feelings 💗: ${feelings}`;
 }
